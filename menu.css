@@ -1,0 +1,63 @@
+body {
+    background-image: linear-gradient( to right,#f0f0f0, #F5F5DC);
+    padding: 20px;
+  }
+  
+.header{
+    height: 90px;
+    width: 100%;
+    background-color: rgb(234, 234, 174);
+    font-size: 30PX;
+    padding: 20px;
+}
+.list{
+    display: flex;
+    gap: 15px;
+    float: right;
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+button{
+    background-color: rgb(109, 137, 236);
+    height: 40px;
+    width: 100px;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+.footer{
+    background-color: rgb(234, 234, 174);
+    height: 50px;
+    width: 100%;
+}
+.list2{
+    display: flex;
+    gap: 15px;
+    float: right;
+    list-style-type: none;
+    position: absolute;
+    bottom: -10px;
+    left: 600px;
+}
+.list3{
+    display: flex;
+    gap: 35px;
+    list-style-type: none;
+    float: left;
+    position: absolute;
+    top: 250px;
+}
+.main{
+    height: 500px;
+    width: 100%;
+    background-color: rgb(248, 246, 227);
+}
+.book:hover{
+    height: 350px;
+    width: 250px;
+    transition-duration: 1s;
+}
+.c:hover{
+    background-color: antiquewhite;
+}

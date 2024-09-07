@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Data Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Order Details</h2>
+    <form id="myForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username">
+        <div id="usernameError" class="error"></div>
+
+        <label for="text">Address:</label>
+        <textarea name="address" placeholder="Enter your Address" rows="4" cols="50"></textarea>
+        <div id="passwordError" class="error"></div>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob">
+        <div id="dobError" class="error"></div>
+
+        <label for="enrollment">Enrollment Number:</label>
+        <input type="text" id="enrollment" name="enrollment" placeholder="Enter your enrollment number">
+        <div id="enrollmentError" class="error"></div>
+
+        <label for="Phone No">Phone No:</label>
+        <input type="text" name="Phone No" placeholder="Enter your Phone number">
+        <div class="error"></div>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+        <div id="emailError" class="error"></div>
+
+        <input type="submit" value="By Now">
+    </form>
+
+    <script>
+     document.getElementById('myForm').onsubmit = function(event){
+        let isValid = true;
+
+        // Name
+        let username = document.getElementById('username').value.trim();
+        let usernameError = document.getElementById('usernameError');
+        if(username.length < 8){
+            usernameError.textContent = 'Name must be at least 8 characters long';
+            isValid = false;
+        } else {
+            usernameError.textContent = '';
+        }
+
+        // Password
+        let password = document.getElementById('password').value.trim();
+        let passwordError = document.getElementById('passwordError');
+        var pattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,16}$/;
+        if(!pattern.test(password)){
+            passwordError.textContent = 'Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one digit, and one special character';
+            isValid = false;
+        } else {
+            passwordError.textContent = '';
+        }
+
+        // Repeat Password
+        let repeatPassword = document.getElementById('repeatPassword').value.trim();
+        let repeatPasswordError = document.getElementById('repeatPasswordError');
+        if(password !== repeatPassword){
+            repeatPasswordError.textContent = 'Passwords do not match';
+            isValid = false;
+        } else {
+            repeatPasswordError.textContent = '';
+        }
+
+        // Birth Date
+        let dob = document.getElementById('dob').value;
+        let dobError = document.getElementById('dobError');
+        if(dob){
+            let today = new Date();
+            let birthDate = new Date(dob);
+            let age = today.getFullYear() - birthDate.getFullYear();
+            let m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            if(age < 18){
+                dobError.textContent = 'You must be at least 18 years old';
+                isValid = false;
+            } else {
+                dobError.textContent = '';
+            }
+        } else {
+            dobError.textContent = 'Date of Birth is required';
+            isValid = false;
+        }
+
+        // Enrollment
+        let enrollment = document.getElementById('enrollment').value.trim();
+        let enrollmentError = document.getElementById('enrollmentError');
+        var pattern1 = /^[0-9]{11}$/;
+        if(!pattern1.test(enrollment)){
+            enrollmentError.textContent = 'Invalid Enrollment';
+            isValid = false;
+        } else {
+            enrollmentError.textContent = '';
+        }
+
+        // Email
+        let email = document.getElementById('email').value.trim();
+        let emailError = document.getElementById('emailError');
+        var pattern2 = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
+        if(!pattern2.test(email)){
+            emailError.textContent = 'Invalid email address';
+            isValid = false;
+        } else {
+            emailError.textContent = '';
+        }
+
+        // Prevent form submission if any validation fails
+        if (!isValid) {
+            event.preventDefault();
+        }
+    }
+
+    </script>
+
+</body>
+</html>
